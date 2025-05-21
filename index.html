@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>YouTube MP3 Downloader</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #333;
+      background-color: #f3f4f6;
       margin: 0;
       padding: 40px;
       text-align: center;
-    }
-    h1 {
-      color: #c4302b;
     }
     .container {
       background: white;
@@ -22,28 +18,53 @@
       border-radius: 12px;
       max-width: 600px;
       margin: auto;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
     }
-    a {
-      color: #0366d6;
+    input[type="text"] {
+      width: 80%;
+      padding: 12px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #c4302b;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: not-allowed;
+    }
+    p.note {
+      font-size: 0.9em;
+      color: #666;
+    }
+    code {
+      background: #eee;
+      padding: 4px 6px;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🎵 YouTube MP3 Downloader</h1>
-    <p>Una herramienta en Python para descargar audio de YouTube y convertirlo a MP3.</p>
+    <p>Descarga MP3 desde videos de YouTube. Ejecuta este proyecto en tu computadora.</p>
     
-    <h2>🔧 ¿Cómo usarlo?</h2>
+    <input type="text" placeholder="Pega aquí la URL de YouTube" disabled />
+    <br />
+    <button disabled>Descargar MP3</button>
+
+    <p class="note">Esta es solo una vista previa. Para usar la herramienta, descarga el proyecto y ejecútalo localmente.</p>
+
+    <h3>🧑‍💻 Instrucciones:</h3>
     <ol>
       <li>Clona el repositorio: <code>git clone https://github.com/glopera24/yt-mp3-downloader.git</code></li>
-      <li>Instala las dependencias: <code>pip install -r requirements.txt</code></li>
+      <li>Instala dependencias: <code>pip install -r requirements.txt</code></li>
       <li>Ejecuta el script: <code>python app.py</code></li>
     </ol>
 
-    <p>Consulta el código en <a href="https://github.com/glopera24/yt-mp3-downloader" target="_blank">GitHub</a>.</p>
-    
-    <p style="margin-top: 40px; font-size: 0.9em;">© 2025 Gustavo Lopera. Proyecto bajo licencia MIT.</p>
+    <p style="margin-top: 40px; font-size: 0.9em;">© 2025 Gustavo Lopera — Código bajo licencia MIT.</p>
   </div>
 </body>
 </html>
