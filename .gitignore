@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.mp3
+*.mp4
+temp_audio*
+downloads/
