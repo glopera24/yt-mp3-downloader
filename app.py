@@ -1,34 +1,34 @@
-# -*- coding: utf-8 -*-
-
+from flask import Flask, render_template, request, send_file
 from pytube import YouTube
 from moviepy.editor import AudioFileClip
 import os
+import uuid
 
-def descargar_video_y_convertir_mp3(url, carpeta_salida="downloads"):
-    # Crear carpeta de salida si no existe
-    if not os.path.exists(carpeta_salida):
-        os.makedirs(carpeta_salida)
+app = Flask(__name__)
 
-    print("Descargando video...")
-    yt = YouTube(url)
-    video = yt.streams.filter(only_audio=True).first()
+DOWNLOAD_FOLDER = "downloads"
+os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 
-    archivo_video = video.download(output_path=carpeta_salida)
-    print(f"Video descargado en: {archivo_video}")
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        url = request.form["url"]
+        try:
+            yt = YouTube(url)
+            video = yt.streams.filter(only_audio=True).first()
+            temp_file = os.path.join(DOWNLOAD_FOLDER, f"{uuid.uuid4()}.mp4")
+            video.download(filename=temp_file)
 
-    # Crear ruta del archivo MP3
-    archivo_mp3 = os.path.splitext(archivo_video)[0] + ".mp3"
+            mp3_file = temp_file.replace(".mp4", ".mp3")
+            audio_clip = AudioFileClip(temp_file)
+            audio_clip.write_audiofile(mp3_file)
+            audio_clip.close()
+            os.remove(temp_file)
 
-    print("Convirtiendo a MP3...")
-    audio_clip = AudioFileClip(archivo_video)
-    audio_clip.write_audiofile(archivo_mp3)
-    audio_clip.close()
-
-    # Opcional: eliminar el archivo de audio original (formato webm o mp4)
-    os.remove(archivo_video)
-
-    print(f"Archivo MP3 guardado en: {archivo_mp3}")
+            return send_file(mp3_file, as_attachment=True)
+        except Exception as e:
+            return render_template("index.html", error=str(e))
+    return render_template("index.html")
 
 if __name__ == "__main__":
-    url = input("Introduce la URL del video de YouTube: ").strip()
-    descargar_video_y_convertir_mp3(url)
+    app.run(debug=True)
